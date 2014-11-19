@@ -3,16 +3,13 @@
 '''
 object2json.py Convent OBJECT to JSON
 
-
 将对象结构转化成一个json字符串，使用递归思路
 python json库，对于对象嵌套的类型无能为力
-
 
 @author: hzwangzhiwei
 @contact: http://50vip.com/
 Created on 2014年11月19日
 '''
-# from bean.Msg import Msg
 
 class DictToJson(object):
     '''

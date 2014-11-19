@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 #coding=utf-8
 '''
-Created on 2014年11月12日
-
 an Simple example.
+
 @author: hzwangzhiwei
+@contact: http://50vip.com/
+Created on 2014年11月12日
 '''
 
 from object2json import ObjToJson
-
 
 class Msg(object):
     #消息的id，唯一标示，使用id来进行请求包和返回包的匹配
