@@ -7,5 +7,10 @@ Python script converts Object to JSON.
 3. import module
 4. `ObjToJson(obj).toJson()`
 
+## Link ##
+For contract.
+
+- [http://50vip.com/](http://50vip.com/ "Blog")
+
 ## License ##
 object2json is released under the terms of the [MIT license](http://opensource.org/licenses/MIT).
