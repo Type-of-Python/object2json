@@ -31,21 +31,17 @@ class DictToJson(object):
         json_str = '{'
         for (k, v) in self.__dict .items(): 
             if isinstance(v, int):
-                json_str = json_str + ('"%s":%d,' % (k, v))
-            elif isinstance(v, float):
-                json_str = json_str + ('"%s":%f,' % (k, v))
-            elif isinstance(v, long):
-                json_str = json_str + ('"%s":%f,' % (k, v))
-            elif isinstance(v, str):
-                json_str = json_str + ('"%s":"%s",' % (k, v))
-            elif isinstance(v, unicode):
-                json_str = json_str + ('"%s":"%s",' % (k, v))
-            elif isinstance(v, list):
-                json_str = json_str + ('"%s":%s,' % (k, ListToJson(v).toJson()))
+                json_str = json_str + ('"%s":%d,' % (k, v)) #整数
+            elif isinstance(v, (float, long)):
+                json_str = json_str + ('"%s":%f,' % (k, v)) #浮点数
+            elif isinstance(v, (unicode, str)):
+                json_str = json_str + ('"%s":"%s",' % (k, v)) #字符串
+            elif isinstance(v, (list, tuple)):
+                json_str = json_str + ('"%s":%s,' % (k, ListToJson(v).toJson())) #list，tuple
             elif isinstance(v, dict):
-                json_str = json_str + ('"%s":%s,' % (k, DictToJson(v).toJson()))
+                json_str = json_str + ('"%s":%s,' % (k, DictToJson(v).toJson())) #字典
             elif isinstance(v, object):
-                json_str = json_str + ('"%s":%s,' % (k, ObjToJson(v).toJson()))
+                json_str = json_str + ('"%s":%s,' % (k, ObjToJson(v).toJson())) #对象
         #如果json_str以','结尾，则去掉','
         if json_str.endswith(','):
             json_str = json_str[0 : -1] #去掉最后一个','
@@ -72,19 +68,17 @@ class ListToJson(object):
         json_str = '['
         for v in self.__list:
             if isinstance(v, int):
-                json_str = json_str + ('%d,' % v)
-            elif isinstance(v, float):
-                json_str = json_str + ('%f,' % v)
-            elif isinstance(v, str):
-                json_str = json_str + ('"%s",' % v)
-            elif isinstance(v, unicode):
-                json_str = json_str + ('"%s",' % v)
-            elif isinstance(v, list):
-                json_str = json_str + ('"%s",' % ListToJson(v).toJson())
+                json_str = json_str + ('%d,' % v) #整数
+            elif isinstance(v, (float, long)):
+                json_str = json_str + ('%f,' % v) #浮点数
+            elif isinstance(v, (unicode, str)):
+                json_str = json_str + ('"%s",' % v) #字符串
+            elif isinstance(v, (list, tuple)):
+                json_str = json_str + ('%s,' % ListToJson(v).toJson()) #list，tuple
             elif isinstance(v, dict):
-                json_str = json_str + ('"%s",' % DictToJson(v).toJson())
+                json_str = json_str + ('%s,' % DictToJson(v).toJson()) #字典
             elif isinstance(v, object):
-                json_str = json_str + ('"%s",' % ObjToJson(v).toJson())
+                json_str = json_str + ('%s,' % ObjToJson(v).toJson()) #对象
         
         #如果json_str以','结尾，则去掉','
         if json_str.endswith(','):
@@ -109,5 +103,16 @@ class ObjToJson(object):
     def toJson(self):
         if self.__object == None:
             return '{}'
-        return DictToJson(self.__object.__dict__).toJson()
         
+        if isinstance(self.__object, (float, long, int)):
+            return '[%s]' % str(self.__object)
+        elif isinstance(self.__object, (unicode, str)):
+            return '["%s"]' % str(self.__object)
+        elif isinstance(self.__object, (list, tuple)):
+            return ListToJson(self.__object).toJson()
+        elif isinstance(self.__object, dict):
+            return DictToJson(self.__object).toJson()
+        elif isinstance(self.__object, object):
+            return DictToJson(self.__object.__dict__).toJson()
+        return '{}'
+
