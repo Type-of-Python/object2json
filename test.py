@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#coding=utf-8
+#coding=utf8
 '''
 an Simple example for lib https://github.com/hustcc/object2json
 
@@ -7,8 +7,8 @@ an Simple example for lib https://github.com/hustcc/object2json
 @contact: http://50vip.com/
 Created on 2014年11月12日
 '''
-
-from object2json import ObjToJson
+import json
+from base.object2json import obj2json
 
 class Msg(object):
     id = 0 #id生成必须全局唯一
@@ -33,17 +33,19 @@ class Msg(object):
         '''
         self.id = 5201314 #int
         self.type = 124.0 #float
-        self.cmd = (1, '2', [3,4], {'a':1, 'b':'2'}) #tuple, list, dict
+        self.cmd = (1, "2\"", [3,4], {'a':1, 'b':'2'}) #tuple, list, dict
         self.data = {'pos':{'x': 100, 'y':50}} #dict
         self.sender = '50vip' #string
         self.recipient = u'我是中国人' #unicode
         self.range = ['a', 1, 1.0]
         self.ext = None #null
-    
+  
     
 if __name__ == '__main__':
+    print 'start'
     msg = Msg()
     msg.ext2 = Msg() #object
-    print(ObjToJson(msg).toJson())
+    #lambda
+    print json.dumps(msg, default=lambda o: o.__dict__)
     print '----'
-    print(ObjToJson("abc").toJson())
+    print obj2json(msg)
