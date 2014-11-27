@@ -5,7 +5,7 @@ Project：[https://github.com/hustcc/object2json](https://github.com/hustcc/obje
 1. clone project
 2. copy object2json.py into your project
 3. import module
-4. `ObjToJson(obj).toJson()`
+4. `obj2json(obj)` see test.py
 
 ## Link ##
 For contract.
